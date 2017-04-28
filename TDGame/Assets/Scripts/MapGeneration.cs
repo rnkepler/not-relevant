@@ -10,9 +10,14 @@ public class MapGeneration : MonoBehaviour {
     void Start () {
         //
         // Load map data from JSON file
+        // The current map file being used is Assets/Resources/Maps/Map01.json and is a small 3 x 3 map
+        // TODO: Don't hard code the map name
         TextAsset newMapData = Resources.Load("Maps/Map01") as TextAsset;
         string mapJson = newMapData.text;
         Debug.Log("Map is = " + mapJson, newMapData);
+
+        //
+        // Create the map object from the json data.  The tile grid can be created from this obect.
         GameMap newMap = JsonUtility.FromJson<GameMap>(newMapData.text);
 
         GenerateGrid(newMap);
@@ -22,8 +27,14 @@ public class MapGeneration : MonoBehaviour {
 		
 	}
 
+    /// <summary>
+    /// Create the map with a grid of tiles
+    /// </summary>
+    /// <param name="map">Map definition</param>
     public void GenerateGrid(GameMap map)
     {
+        // TODO: Tile needs to be selected by type
+        // TODO: Decide on how to arrange the tiles.  Currently tiles are being placed in rows from left to right with the rows placed from bottom to top
         float cubeSize = tile.GetComponent<SpriteRenderer>().sprite.bounds.size.x;
 
         int width = map.mapWidth;
